@@ -1,5 +1,5 @@
 - **TEP**: 
-- **title**: SFT (semi-fungible token) Standard
+- **title**: Jetton Collections Standard
 - **status**: Draft
 - **type**: Contract Interface
 - **authors**: [Ivan Klimov](https://github.com/ivklim-ton-play) 
@@ -7,23 +7,23 @@
 
 # Summary
 
-A standard interface for semi-fungible tokens(SFT). 
+A standard interface for Jetton Collections. 
 
 # Motivation
-The idea is simple and seeks to create standard that can represent and control any number of fungible and non-fungible token types.
+The idea is simple and seeks to create a standard that can allow you to combine Jettons in collection and merge Jetton Collections into a collection of Jetton Colletion.
 
 - The way of ownership changing.
-- The way of association of similar items into collections.
-- The way of tonkens transfers.
-- The way of retrieving common information (name, circulating supply, etc) about given semi-fungible tokens asset.
+- The way of association of Jettons into collections.
 
 # Guide
 
-This standard is needed in the case when you need to issue a large number of identical NFTs, but the serial number is not important. For example, a membership card to access the site or the same items for games (100 red t-shirts, 100 yellow shorts, etc.). 
+This standard is needed when you need to issue several different Jettons, but at the same time be able to confirm that they all belong to the same collection on the blockchain.
 
-SFT represents ownership of a copy of a unique asset in a collection.
+For example, you have access cards for entering the site and with different categories of access. Knowing the actual address of the collection, you can easily check the identity of Jetton.
 
-## SFT Metadata
+For example, a similar situation for the game. In the game, there are various items released as Jetton and can be combined into one collection (100 iron armor, 200 wooden armor, and so on)
+
+## Jetton Collections Metadata
 Each SFT minter and SFT Collection itself has its own metadata ([TEP-64](https://github.com/ton-blockchain/TEPs/blob/master/text/0064-token-data-standard.md)). It contains some info about SFT, such as title and associated image. Metadata can be stored offchain (smart contract will contain only a link to json) or onchain (all data will be stored in smart contract).
 
 ### SFT minter metadata example (offchain):
