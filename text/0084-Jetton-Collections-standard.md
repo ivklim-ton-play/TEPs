@@ -51,7 +51,7 @@ Here and following we use:
 
 ### Example: 
 
-#### Jettin collection for Jettons
+#### Jetton collection for Jettons
 You release a jetton-collection with circulating supply of 200 Jettons for id = 0, and circulating supply of 100 Jettons for id = 1.
 - We have 2 owners.
   - Owner_1 has 100 Jettons by id = 0 and 100 by id = 1.
@@ -63,7 +63,7 @@ We need to deploy 6 contracts:
 - For owner_1 we need **1** jetton-wallet smart-contract from jetton-master by id = 0 and **1** jetton-wallet smart-contract from jetton-master by id = 1.
 - For owner_2 we need **1** jetton-wallet smart-contract from jetton-master by id = 0.
 
-#### Jettin collection for Jetton collections
+#### Jetton collection for Jetton collections
 Here we need a general collection contract for several collections. For example, let's call it the Super Jetton collection.
 
 Then we will add only one general contract. And contracts for each Jetton collection (described above).
