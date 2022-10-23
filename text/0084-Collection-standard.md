@@ -1,5 +1,5 @@
 - **TEP**: 
-- **title**: Jetton Collections Standard
+- **title**: Collections Standard
 - **status**: Draft
 - **type**: Contract Interface
 - **authors**: [Ivan Klimov](https://github.com/ivklim-ton-play) 
@@ -7,26 +7,26 @@
 
 # Summary
 
-A standard interface for Jetton collections. 
+A standard interface for collections contracts.
 
 # Motivation
-The idea is simple and seeks to create a standard that can allow you to combine Jettons in collection and combine Jetton collections into a collection of Jetton Colletion.
+The idea is simple and seeks to create a standard that will allow you to combine different contracts (all with the same source code) into collections.
 
 - The way of ownership changing.
-- The way of association of Jettons into collections.
+- The way of association of contracts into collections.
 
 # Guide
 
-This standard is needed when you need to have several different Jettons, but at the same time be able to confirm with one step that they all belong to the same collection on the blockchain.
+Make a universal standard for creating a collection of contracts. This will make it possible to have a universal standard for NFT collections, for Jetton collections, and so on.
 
 For example, you have access cards for entering the site and with different categories of access. Knowing the actual address of the collection, you can easily check the identity of Jetton.
 
 For example, a similar situation for the game. In the game, there are various items released as Jetton and can be combined into one collection (100 iron armor, 200 wooden armor, and so on)
 
-## Jetton collection Metadata
-Each Jetton collection itself has its own metadata ([TEP-64](https://github.com/ton-blockchain/TEPs/blob/master/text/0064-token-data-standard.md)). It contains some info, such as title and associated image. Metadata can be stored offchain (smart contract will contain only a link to json) or onchain (all data will be stored in smart contract).
+## Collection Metadata
+Each Collection itself has its own metadata ([TEP-64](https://github.com/ton-blockchain/TEPs/blob/master/text/0064-token-data-standard.md)). It contains some info, such as title and associated image. Metadata can be stored offchain (smart contract will contain only a link to json) or onchain (all data will be stored in smart contract).
 
-### Jetton collection metadata example (offchain):
+### Collection metadata example (offchain):
 ```json
 {
    "image": "https://image.com/img.png",
@@ -40,14 +40,13 @@ It uses the [NFT collection metadata](https://github.com/ton-blockchain/TEPs/blo
 Offchain metadata is published for example on web 
 
 ## Useful links
-1. [Reference Jetton collection of Jettons implementation](https://github.com/ivklim-ton-play/ton-Jetton-Collection)
-2. [Reference Jetton collection of Jetton collections implementation](https://github.com/ivklim-ton-play/Jetton-Collections)
+1. [Reference Jetton collection of Jettons implementation](https://github.com/ivklim-ton-play/ton-Collections)
 
 # Specification
 
 Here and following we use:
- - "Jetton master" is used to mint new jettons from [Jettons](https://github.com/ton-blockchain/TEPs/blob/master/text/0074-jettons-standard.md) standart. But for Jetton collection it contains some additional methods for the collection. 
- - "Jetton collection" - collection for Jetton masters or Jetton collections like items. Each item has its own unique id. Based on the idea of [nft-collection](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md). Smart-contracts called **"[jetton-collection](https://github.com/ivklim-ton-play/TEPs/edit/Update-to-Jetton-Collections/text/0084-Jetton-Collections-standard.md#jetton-collection-smart-contract)"**.
+ - "Item" - some contract that contains an additional method which means that the given contract has a collection.
+ - "Token collection" - collection for Items. Also, an item can be a Token Collection, so you can build collection hierarchies. Each item has its own unique id. Based on the idea of [nft-collection](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md). Smart-contracts called **"[To-collection](https://github.com/ivklim-ton-play/TEPs/edit/Update-to-Jetton-Collections/text/0084-Jetton-Collections-standard.md#jetton-collection-smart-contract)"**.
 
 ### Example: 
 
@@ -63,12 +62,12 @@ We need to deploy 6 contracts:
 - For owner_1 we need **1** jetton-wallet smart-contract from jetton-master by id = 0 and **1** jetton-wallet smart-contract from jetton-master by id = 1.
 - For owner_2 we need **1** jetton-wallet smart-contract from jetton-master by id = 0.
 
-#### Jettin collection for Jetton collections
+#### Jetton collection for Jetton collections
 Here we need a general collection contract for several collections. For example, let's call it the Super Jetton collection.
 
 Then we will add only one general contract. And contracts for each Jetton collection (described above).
 
-## Extended Jetton master smart contract
+## Item smart contract
 
 Must implement:
 
@@ -78,29 +77,29 @@ Must implement:
 
 ### Get-methods
 
-1. `get_jetton_collection_data()` returns `(int init?, int index, slice collection_address)` 
+1. `get_collection_data()` returns `(int init?, int index, slice collection_address)` 
 
-   `init?` - if not zero, then this Jetton master is fully initialized and ready for interaction
+   `init?` - if not zero, then this Item is fully initialized and ready for interaction
 
-   `index` - (integer) - index in Jetton collection
+   `index` - (integer) - index in Collection
  
-   `collection_address` - (MsgAddress) - address of the smart contract of the collection to which this Jetton master belongs. 
+   `collection_address` - (MsgAddress) - address of the smart contract of the collection to which this Item belongs. 
  
-## Jetton collection smart contract
+## Collection smart contract
  
-It is assumed that the smart contract of the collection deploys smart contracts of Jettons masters of this collection.
+It is assumed that the smart contract of the collection deploys smart contracts of Items of this collection.
 
 Must implement:
 
 ### Get-methods
 1. [**`get_collection_data()`** as in NFT Collection smart contract](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md#get-methods-1)
 
-2. [**`get_nft_address_by_index(int index)`** as in NFT Collection smart contract](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md#get-methods-1)
+2. [**`get_item_address_by_index(int index)`** as get_nft_address_by_index() in NFT Collection smart contract](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md#get-methods-1)
 
-3. [**`get_nft_content(int index, cell individual_content)`** as in NFT Collection smart contract](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md#get-methods-1)
+3. [**`get_item_content(int index, cell individual_content)`** as get_nft_content() in Ote Collection smart contract](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md#get-methods-1)
 
 # Drawbacks
-There is no way to get current owner of Jetton collection and Jetton master onchain because TON is an asynchronous blockchain. When the message with info about Jetton collection owner will be delivered, this info may become irrelevant, so we can't guarantee that current owner hasn't changed.
+There is no way to get current owner of Collection onchain because TON is an asynchronous blockchain. When the message with info about Collection owner will be delivered, this info may become irrelevant, so we can't guarantee that current owner hasn't changed.
 
 There is no way to get actual wallet balance onchain, because when the message with balance will arrive, wallet balance may be not actual.
 
@@ -109,6 +108,7 @@ Look in [NFT Rationale and alternatives](https://github.com/ton-blockchain/TEPs/
 
 # Prior art
 1. [Ethereum NFT Standard (EIP-1155)](https://eips.ethereum.org/EIPS/eip-1155)
+2. [Ethereum NFT Standard (EIP-721)](https://eips.ethereum.org/EIPS/eip-721)
 
 # Unresolved questions
 
@@ -124,4 +124,4 @@ Look in [NFT Rationale and alternatives](https://github.com/ton-blockchain/TEPs/
 [21 Sep 2022] Use "sft":"true" in metadata instead of "sft" : {}  
 [23 Sep 2022] For SFT wallet use get_wallet_data()  
 [05 Oct 2022] Removed the transfer requirement for SFT minter
-[23 Oct 2022] The standard has been redesigned as extended for Jetton like Jetton Collections
+[23 Oct 2022] The standard has been redesigned as Collection for different contracts
