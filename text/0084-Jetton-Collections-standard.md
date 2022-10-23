@@ -10,7 +10,7 @@
 A standard interface for Jetton collections. 
 
 # Motivation
-The idea is simple and seeks to create a standard that can allow you to combine Jettons in collection and combine Jetton collections into a collection of Jetton Colletion.
+The idea is simple and seeks to create a standard that can allow you to combine Jettons in collection.
 
 - The way of ownership changing.
 - The way of association of Jettons into collections.
@@ -41,13 +41,12 @@ Offchain metadata is published for example on web
 
 ## Useful links
 1. [Reference Jetton collection of Jettons implementation](https://github.com/ivklim-ton-play/ton-Jetton-Collection)
-2. [Reference Jetton collection of Jetton collections implementation](https://github.com/ivklim-ton-play/Jetton-Collections)
 
 # Specification
 
 Here and following we use:
  - "Jetton master" is used to mint new jettons from [Jettons](https://github.com/ton-blockchain/TEPs/blob/master/text/0074-jettons-standard.md) standart. But for Jetton collection it contains some additional methods for the collection. 
- - "Jetton collection" - collection for Jetton masters or Jetton collections like items. Each item has its own unique id. Based on the idea of [nft-collection](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md). Smart-contracts called **"[jetton-collection](https://github.com/ivklim-ton-play/TEPs/edit/Update-to-Jetton-Collections/text/0084-Jetton-Collections-standard.md#jetton-collection-smart-contract)"**.
+ - "Jetton collection" - collection for Jetton masters. Each item has its own unique id. Based on the idea of [nft-collection](https://github.com/ton-blockchain/TEPs/blob/master/text/0062-nft-standard.md). Smart-contracts called **"[jetton-collection](https://github.com/ivklim-ton-play/TEPs/edit/Update-to-Jetton-Collections/text/0084-Jetton-Collections-standard.md#jetton-collection-smart-contract)"**.
 
 ### Example: 
 
@@ -62,11 +61,6 @@ We need to deploy 6 contracts:
 - **1** jetton-master smart-contract by id = 0 and **1** jetton-master smart-contract by id = 1.
 - For owner_1 we need **1** jetton-wallet smart-contract from jetton-master by id = 0 and **1** jetton-wallet smart-contract from jetton-master by id = 1.
 - For owner_2 we need **1** jetton-wallet smart-contract from jetton-master by id = 0.
-
-#### Jettin collection for Jetton collections
-Here we need a general collection contract for several collections. For example, let's call it the Super Jetton collection.
-
-Then we will add only one general contract. And contracts for each Jetton collection (described above).
 
 ## Extended Jetton master smart contract
 
