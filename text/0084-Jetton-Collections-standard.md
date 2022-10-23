@@ -50,7 +50,7 @@ Here and following we use:
 
 ### Example: 
 
-#### Jettin collection for Jettons
+#### Jetton collection for Jettons
 You release a jetton-collection with circulating supply of 200 Jettons for id = 0, and circulating supply of 100 Jettons for id = 1.
 - We have 2 owners.
   - Owner_1 has 100 Jettons by id = 0 and 100 by id = 1.
