@@ -40,7 +40,7 @@ It uses the [NFT collection metadata](https://github.com/ton-blockchain/TEPs/blo
 Offchain metadata is published for example on web 
 
 ## Useful links
-1. [Reference Jetton collection of Jettons implementation](https://github.com/ivklim-ton-play/ton-Collections)
+1. [Reference Jetton collection of Jettons implementation](https://github.com/ivklim-ton-play/ton-SFT/tree/feature/jetton-collection-contract)
 
 # Specification
 
